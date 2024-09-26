@@ -1,0 +1,13 @@
+.calendar-container {
+    text-align: center;
+  }
+  
+  .available-date {
+    background-color: white; /* Green for available dates */
+  }
+  
+  .unavailable-date {
+    background-color: #0058E6; /* Red for unavailable dates */
+    pointer-events: none; /* Prevent selection of unavailable dates */
+  }
+  
