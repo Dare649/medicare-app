@@ -49,7 +49,7 @@ const OtpVerification = () => {
                 icon: "success",
                 text: "Verification successful!",
             }).then(() => {
-                navigate("/sign-in");
+                navigate("/");
             });
         } catch (error) {
             setLoading(false);
