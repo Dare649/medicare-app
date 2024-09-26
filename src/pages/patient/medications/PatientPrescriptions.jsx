@@ -123,8 +123,8 @@ const PatientPrescriptions = () => {
                           >
                             {
                               item.dosage_form === "c" ? <img src={capsule} alt="" className="w-full"/> :
-                              item.dosage_form === "i" ? <img src={med1} alt="" /> :
-                              item.dosage_form === "s" ? <img src={med2} alt="" />: null
+                              item.dosage_form === "i" ? <img src={med1} alt="" className="w-full"/> :
+                              item.dosage_form === "s" ? <img src={med2} alt="" className="w-full"/>: null
                             }
                           </div>
                         </div>
@@ -181,8 +181,8 @@ const PatientPrescriptions = () => {
                           >
                             {
                               item.dosage_form === "c" ? <img src={capsule} alt="" className="w-full"/> :
-                              item.dosage_form === "i" ? <img src={med1} alt="" /> :
-                              item.dosage_form === "s" ? <img src={med2} alt="" />  : null
+                              item.dosage_form === "i" ? <img src={med1} alt="" className="w-full"/> :
+                              item.dosage_form === "s" ? <img src={med2} alt="" className="w-full"/>  : null
                             }
                           </div>
                         </div>
