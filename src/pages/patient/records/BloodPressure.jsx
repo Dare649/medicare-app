@@ -17,7 +17,7 @@ const BloodPressure = ({handleClose}) => {
         activity: "",
         systolic: "",
         diastolic: "",
-        unit: ""
+        unit: "mmHg"
     });
 
     function formatDate(date) {
@@ -165,7 +165,7 @@ const BloodPressure = ({handleClose}) => {
                     <input
                         type="text"
                         name="unit"
-                        placeholder="E.g 120 mmHg"
+                        disabled
                         className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
                         value={formData.unit}
                         onChange={handleChange}
@@ -182,7 +182,7 @@ const BloodPressure = ({handleClose}) => {
                         <input
                             type="number"
                             name="systolic"
-                            placeholder="E.g 120 mmHg"
+                            placeholder="120"
                             className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
                             value={formData.systolic}
                             onChange={handleChange}
@@ -198,7 +198,7 @@ const BloodPressure = ({handleClose}) => {
                         <input
                             type="number"
                             name="diastolic"
-                            placeholder="E.g 80 mmHg"
+                            placeholder="80"
                             className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
                             value={formData.diastolic}
                             onChange={handleChange}

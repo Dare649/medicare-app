@@ -47,7 +47,7 @@ const App = () => {
                 <Route path="/sign-up" element={<Signup />} />
                 <Route path="/otp-verification" element={<OtpVerification />} />
                 <Route path="/terms-&-conditions" element={<Terms />} />
-                <Route path="*" element={<Navigate to="/sign-in" replace />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
               </>
             ) : (
               // Routes for authenticated users

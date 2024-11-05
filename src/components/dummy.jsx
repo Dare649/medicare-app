@@ -46,12 +46,6 @@ export const navLink = [
         gap: true
     },
     
-    {
-        title: "sign out",
-        icon: <IoLogOutOutline size={30}/>,
-        gap1: true,
-        
-    },
 ]
 
 
@@ -119,11 +113,7 @@ export const docnav = [
         gap: true
     },
 
-    {
-        title: "sign out",
-        icon: <IoLogOutOutline size={30}/>,
-        gap1: true
-    },
+    
 ]
 
 

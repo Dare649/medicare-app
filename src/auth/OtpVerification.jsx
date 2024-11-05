@@ -3,7 +3,7 @@ import logo from "../assets/images/logo.png";
 import google from "../assets/icons/google.jpg";
 import doctor from "../assets/images/doctor-1.png";
 import Slider from "../components/slider";
-import {axiosClient} from "../axios";
+import { axiosClient } from "../axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Backdrop from "@mui/material/Backdrop";
@@ -61,30 +61,9 @@ const OtpVerification = () => {
         }
     };
 
-    // const handleResendToken = async () => {
-    //     try {
-    //         setLoading(true);
-    //         await axiosClient.post("/api/resend-otp", { email });
-    //         setLoading(false);
-    //         MySwal.fire({
-    //             title: "Success",
-    //             icon: "success",
-    //             text: "OTP resent successfully!",
-    //         });
-    //     } catch (error) {
-    //         setLoading(false);
-    //         MySwal.fire({
-    //             title: "Error",
-    //             icon: "error",
-    //             text: error?.response?.data?.message || "Failed to resend OTP!",
-    //         });
-    //         console.error("Failed to resend OTP!", error?.response?.data?.message);
-    //     }
-    // };
-
     return (
         <section className="signup w-full h-screen bg-white">
-            <div className="lg:mx-8 sm:px-3 overflow-hidden flex flex-row justify-between ">
+            <div className="lg:mx-8 sm:px-3 overflow-hidden flex flex-row justify-between">
                 <div className="registration lg:w-[40%] lg:mx-16 sm:mx-3 sm:w-full flex-col align-middle justify-center h-full">
                     <div className="logo mt-12">
                         <img src={logo} alt="MyMedicare" className="w-[15%]" />
@@ -93,7 +72,7 @@ const OtpVerification = () => {
                         <h2 className="text-3xl text-neutral-100 font-semibold mb-2">OTP Verification</h2>
                         <p className="text-neutral-50 first-letter:capitalize leading-relaxed tracking-wide">
                             To ensure your security, please enter the{" "}
-                            <span className="capitalize">one time password</span>(OTP) sent to your registered email.
+                            <span className="capitalize">one-time password</span> (OTP) sent to your registered email.
                         </p>
                     </div>
                     <div className="flex flex-row items-center gap-x-2 my-8 justify-center w-full">
@@ -109,12 +88,7 @@ const OtpVerification = () => {
                             />
                         ))}
                     </div>
-                    {/* <p className="first-letter:capitalize text-neutral-50 text-center mb-12">
-                        Didn't receive the OTP?{" "}
-                        <span onClick={handleResendToken} className="capitalize font-bold text-primary-100 cursor-pointer">
-                            Resend
-                        </span>
-                    </p> */}
+                    
                     <div className="submit w-full text-center mb-5">
                         <button
                             onClick={handleVerifyEmail}

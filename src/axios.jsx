@@ -42,7 +42,7 @@ axiosClient.interceptors.response.use(
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         setTimeout(() => {
-          window.location.href = '/sign-in';
+          window.location.href = '/';
         }, 2000);
       });
     }
