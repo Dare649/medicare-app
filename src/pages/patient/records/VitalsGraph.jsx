@@ -157,17 +157,36 @@ const VitalsGraph = () => {
     return (
         <div className="w-full">
             <div className="w-full lg:p-10 sm:p-5">
-                {/* Dropdown for selecting duration */}
-                <select 
-                        value={duration} 
-                        onChange={(e) => setDuration(e.target.value)} 
-                        className="p-2 border rounded lg:w-[50%] sm:full"
-                >
-                    <option value="">--Select Duration--</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="yearly">Yearly</option>
-                </select>
+                <div className='w-full flex lg:flex-row sm:flex-col items-center gap-3'>
+                    {/* Dropdown for selecting duration */}
+                    <select 
+                            value={duration} 
+                            onChange={(e) => setDuration(e.target.value)} 
+                            className="p-2 border rounded lg:w-[50%] sm:full"
+                    >
+                        <option value="">--Select Duration--</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+
+                    <div className="flex lg:flex-row items-center sm:flex-col gap-3 w-full">
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        dateFormat="yyyy-MM-dd"
+                        placeholderText="Start Date"
+                        className="p-2 border rounded"
+                    />
+                    <DatePicker
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        dateFormat="yyyy-MM-dd"
+                        placeholderText="End Date"
+                        className="p-2 border rounded"
+                    />
+                </div>
+                </div>
 
                 {/* Tabs */}
                 <div className="flex items-center justify-center space-x-0 rounded-t-lg w-full ">
