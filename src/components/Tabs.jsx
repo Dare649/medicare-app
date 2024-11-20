@@ -24,25 +24,25 @@ const Tab = ({ content1, content2, content3, content4, title1, title2, title3, t
             <div className="tabItem flex items-center gap-x-3 mt-5 duration-300 ">
                 <h1
                     onClick={handleTab1}
-                    className={`${activeTab === "tab1" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold text-xl" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
+                    className={`${activeTab === "tab1" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold lg:text-xl sm:md" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
                 >
                     {title1}
                 </h1>
                 <h1
                     onClick={handleTab2}
-                    className={`${activeTab === "tab2" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold text-xl" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
+                    className={`${activeTab === "tab2" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold lg:text-xl sm:md" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
                 >
                     {title2}
                 </h1>
                 <h1
                     onClick={handleTab3}
-                    className={`${activeTab === "tab3" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold text-xl" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
+                    className={`${activeTab === "tab3" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold lg:text-xl sm:md" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
                 >
                     {title3}
                 </h1>
                 <h1
                     onClick={handleTab4}
-                    className={`${activeTab === "tab4" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold text-xl" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
+                    className={`${activeTab === "tab4" ? "border-b-4 border-primary-100 duration-300 px-5 cursor-pointer capitalize text-primary-100 font-bold lg:text-xl sm:md" : ""} cursor-pointer capitalize font-bold text-lg hover:text-primary-100 text-neutral-400 hover:px-3 hover:duration-300`}
                 >
                     {title4}
                 </h1>

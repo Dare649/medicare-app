@@ -41,7 +41,7 @@ const Questions = ({ handleCompletion }) => {
                         <MdKeyboardArrowRight />
                     </button>
                 </div>
-                <div className="bg-neutral-50 rounded-lg flex flex-col items-center justify-center mb-10 py-20 mx-auto">
+                <div className="bg-neutral-50 rounded-lg flex flex-col items-center justify-center mb-10 py-20 mx-auto px-3">
                     <p className="font-semibold first-letter:capitalize leading-relaxed tracking-wide">
                         {questions[step - 1]}
                     </p>

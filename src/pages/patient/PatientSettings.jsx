@@ -25,7 +25,7 @@ const PatientSettings = () => {
           content3={<PatientAccount/>}
           title1={"profile"}
           title2={"plans & billing"}
-          title3={"account"}
+          title3={"accounts"}
         />
       </div>
       {

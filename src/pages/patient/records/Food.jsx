@@ -94,7 +94,7 @@ const Food = ({handleClose}) => {
 
   return (
     <div className="w-full">
-        <form onSubmit={handleSubmit} className="p-5">
+        <form onSubmit={handleSubmit} className="lg:p-5 sm:p-2">
             <div className="date w-full mb-4">
                 <div className="w-full items-center justify-between flex flex-row">
                     <label className="capitalize font-bold text-lg">date</label>

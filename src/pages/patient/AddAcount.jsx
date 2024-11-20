@@ -22,14 +22,24 @@ const AddAccount = ({handleClose, onClick}) => {
     sex: "",
     date_of_birth: "",
     relationship: "",
+    email: ""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "date_of_birth") {
+      const [year, month, day] = value.split("-");
+      const formattedDate = `${day}-${month}-${year}`;
+      setFormData({
+        ...formData,
+        date_of_birth: formattedDate,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleCountryChange = (selectedCountry) => {
@@ -53,7 +63,7 @@ const AddAccount = ({handleClose, onClick}) => {
     e.preventDefault();
     setError({});
 
-    const requiredFields = ["name", "country_code", "phone", "sex", "date_of_birth", "relationship"];
+    const requiredFields = ["name", "email", "country_code", "phone", "sex", "date_of_birth", "relationship"];
     let formErrors = {};
 
     requiredFields.forEach((field) => {
@@ -113,6 +123,18 @@ const AddAccount = ({handleClose, onClick}) => {
             {error.name && <span className="text-red-500">{error.name}</span>}
           </div>
           <div className="w-full">
+            <h2 className="capitalize font-bold mb-2 ">email</h2>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              onChange={handleChange}
+              value={formData.email}
+              className={`outline-none border-2 ${error.email ? "border-red-500" : "border-neutral-50"} p-2 w-full text-lg font-medium rounded-lg focus:border-primary-100`}
+            />
+            {error.name && <span className="text-red-500">{error.email}</span>}
+          </div>
+          <div className="w-full">
             <h2 className="capitalize font-bold mb-2 ">phone</h2>
             <PhoneInput
               international
@@ -157,7 +179,7 @@ const AddAccount = ({handleClose, onClick}) => {
               id="date_of_birth"
               name="date_of_birth"
               onChange={handleChange}
-              value={formData.date_of_birth}
+              value={formData.date_of_birth.split("-").reverse().join("-")}
               className={`outline-none border-2 ${error.date_of_birth ? "border-red-500" : "border-neutral-50"} p-2 w-full text-lg font-medium rounded-lg focus:border-primary-100`}
             />
             {error.date_of_birth && <span className="text-red-500">{error.date_of_birth}</span>}

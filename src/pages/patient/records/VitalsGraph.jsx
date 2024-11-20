@@ -161,7 +161,7 @@ const VitalsGraph = () => {
                 <select 
                         value={duration} 
                         onChange={(e) => setDuration(e.target.value)} 
-                        className="p-2 border rounded w-[50%]"
+                        className="p-2 border rounded lg:w-[50%] sm:full"
                 >
                     <option value="">--Select Duration--</option>
                     <option value="weekly">Weekly</option>

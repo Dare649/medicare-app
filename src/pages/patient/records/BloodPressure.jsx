@@ -105,7 +105,7 @@ const BloodPressure = ({handleClose}) => {
 
   return (
     <div className="w-full">
-        <form onSubmit={handleSubmit} className="p-5">
+        <form onSubmit={handleSubmit} className="lg:p-5 sm:p-2">
             <div className="flex lg:flex-row sm:flex-col w-full items-center gap-4 mb-4">
                 <div className="date lg:w-[50%] sm:w-full">
                     <div className="w-full items-center justify-between flex flex-row">
@@ -210,7 +210,7 @@ const BloodPressure = ({handleClose}) => {
             <div className="bookAppointment w-full text-center my-2">
                 <button
                     disabled={loading}
-                    className="font-bold capitalize text-lg outline-none hover:border-2 active:border-2 bg-primary-100 rounded-lg text-white w-full hover:bg-transparent hover:text-primary-100 hover:border-primary-100 active:bg-transparent active:text-primary-100 active:border-primary-100 px-10 py-3"
+                    className="font-bold capitalize text-lg outline-none hover:border-2 active:border-2 bg-primary-100 rounded-lg text-white w-full hover:bg-transparent hover:text-primary-100 hover:border-primary-100 active:bg-transparent active:text-primary-100 active:border-primary-100 p-3"
                 >
                     {loading ? "loading...": "submit blood pressure"}
                 </button>

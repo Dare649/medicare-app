@@ -99,7 +99,7 @@ const BloodSugar = ({handleClose}) => {
 
   return (
     <div className="w-full">
-        <form onSubmit={handleSubmit} className="p-5">
+        <form onSubmit={handleSubmit} className="lg:p-5 sm:p-2">
             <div className="flex lg:flex-row sm:flex-col w-full items-center gap-4 mb-4">
                 <div className="date lg:w-[50%] sm:w-full">
                     <div className="w-full items-center justify-between flex flex-row">
