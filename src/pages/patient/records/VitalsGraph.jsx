@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2'; // Make sure to install 'react-chartjs-2' and 'chart.js'
-import { axiosClient } from '../../../axios';
+import { Line } from 'react-chartjs-2'; // Ensure to install 'react-chartjs-2' and 'chart.js'
+import { axiosClient } from '../../../axios';  // Assuming you have this axios client setup
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+
 
 const VitalsGraph = () => {
     const [activeTab, setActiveTab] = useState('food'); // Default tab is food
@@ -92,10 +93,11 @@ const VitalsGraph = () => {
                     labels: foodData.map(item => item.date),
                     datasets: [
                         {
-                            label: 'Food (lbs)',
-                            data: foodData.map(item => item.reading_in_lbs || item.reading_in_unit),
+                            label: 'Calories (kcal)',
+                            data: foodData.map(item => parseFloat(item.calories)),
                             borderColor: '#0058E6',
-                            fill: false
+                            backgroundColor: 'rgba(0, 88, 230, 0.2)',
+                            fill: true
                         }
                     ]
                 };
@@ -152,17 +154,32 @@ const VitalsGraph = () => {
         }
     };
 
+    const getTableData = () => {
+        switch (activeTab) {
+            case 'food':
+                return foodData;
+            case 'blood_pressure':
+                return bloodPressureData;
+            case 'blood_sugar':
+                return bloodSugarData;
+            case 'weight':
+                return weightData;
+            default:
+                return [];
+        }
+    };
+
     const chartData = getChartData();
+    const tableData = getTableData();
 
     return (
         <div className="w-full">
             <div className="w-full lg:p-10 sm:p-5">
                 <div className='w-full flex lg:flex-row sm:flex-col items-center gap-3'>
-                    {/* Dropdown for selecting duration */}
                     <select 
-                            value={duration} 
-                            onChange={(e) => setDuration(e.target.value)} 
-                            className="p-2 border rounded lg:w-[50%] sm:full"
+                        value={duration} 
+                        onChange={(e) => setDuration(e.target.value)} 
+                        className="p-2 border rounded w-full"
                     >
                         <option value="">--Select Duration--</option>
                         <option value="weekly">Weekly</option>
@@ -170,26 +187,26 @@ const VitalsGraph = () => {
                         <option value="yearly">Yearly</option>
                     </select>
 
-                    <div className="flex lg:flex-row items-center sm:flex-col gap-3 w-full">
-                    <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        dateFormat="yyyy-MM-dd"
-                        placeholderText="Start Date"
-                        className="p-2 border rounded"
-                    />
-                    <DatePicker
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        dateFormat="yyyy-MM-dd"
-                        placeholderText="End Date"
-                        className="p-2 border rounded"
-                    />
-                </div>
+                    <div className="flex lg:flex-row items-center sm:flex-col gap-1 w-full">
+                        <DatePicker
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            dateFormat="yyyy-MM-dd"
+                            placeholderText="Start Date"
+                            className="p-2 border rounded w-full"
+                        />
+                        <DatePicker
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            dateFormat="yyyy-MM-dd"
+                            placeholderText="End Date"
+                            className="p-2 border rounded w-full"
+                        />
+                    </div>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex items-center justify-center space-x-0 rounded-t-lg w-full ">
+                <div className="flex items-center justify-center space-x-2 rounded-t-lg w-full my-4">
                     {['food', 'blood_pressure', 'blood_sugar', 'weight'].map((type, index) => (
                         <button
                             key={index}
@@ -203,9 +220,12 @@ const VitalsGraph = () => {
                     ))}
                 </div>
 
+                {/* Graph */}
                 <div className="lg:p-4 sm:p-2 w-full">
                     {loading ? (
-                        <div>Loading...</div>
+                        <Backdrop open={loading} className="backdrop">
+                            <CircularProgress color="inherit" />
+                        </Backdrop>
                     ) : chartData.labels.length > 0 ? (
                         <Line
                             data={chartData}
@@ -233,12 +253,38 @@ const VitalsGraph = () => {
                     )}
                 </div>
 
-                
+                {/* Table */}
+                <div className="lg:mt-6 sm:mt-4">
+                    <table className="w-full border-collapse ">
+                        <thead>
+                            <tr>
+                                {Object.keys(tableData[0] || {}).map((key, idx) => (
+                                    <th key={idx} className="border-b-2 border-neutral-50 px-4 py-2 text-left text-neutral-100">
+                                        {key.replace('_', ' ').toUpperCase()}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableData.length > 0 ? (
+                                tableData.map((row, idx) => (
+                                    <tr key={idx} className='odd:bg-neutral-50'>
+                                        {Object.values(row).map((value, idy) => (
+                                            <td key={idy} className="border-b-2 border-neutral-50  px-4 py-2 ">
+                                                {value}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5" className=" px-4 py-2 text-center">No data available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
-                <CircularProgress color="inherit" />
-            </Backdrop>
         </div>
     );
 };

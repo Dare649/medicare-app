@@ -89,7 +89,7 @@ const BloodPressure = ({handleClose}) => {
                 text: "Blood pressure recorded successfully!",
                 title: "Success"
             }).then(()=>{
-                handleClose();
+                window.location.reload('/patient-records');
             });
         } catch (error) {
             setLoading(false);
@@ -98,7 +98,7 @@ const BloodPressure = ({handleClose}) => {
                 text:  "An error occurred, try again later.",
                 title: "Error"
             }).then(()=>{
-                handleClose();
+                window.location.reload('/patient-records');
             });
         }
     };

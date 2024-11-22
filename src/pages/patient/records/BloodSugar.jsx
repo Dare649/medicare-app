@@ -83,7 +83,7 @@ const BloodSugar = ({handleClose}) => {
                 text: "Blood sugar recorded successfully",
                 title: "Success",
             }).then(() => {
-                handleClose();
+                window.location.reload('/patient-records');
             });
         } catch (error) {
             setLoading(false);
@@ -92,7 +92,7 @@ const BloodSugar = ({handleClose}) => {
                 text: "An error occurred, try again later.",
                 title: "Error",
             }).then(() => {
-                handleClose();
+                window.location.reload('/patient-records');
             });
         }
     };

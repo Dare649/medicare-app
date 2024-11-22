@@ -77,7 +77,7 @@ const Food = ({handleClose}) => {
                 text: "Food details recorded successfully!",
                 title: "Success",
             }).then(() => {
-                handleClose();
+                window.location.reload('/patient-records');
             });
         } catch (error) {
             setLoading(false);
@@ -86,7 +86,7 @@ const Food = ({handleClose}) => {
                 text: "An error occurred, try again later",
                 title: "Error",
             }).then(() => {
-                handleClose();
+                window.location.reload('/patient-records');
             });
         }
     };
