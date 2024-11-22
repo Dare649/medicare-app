@@ -254,7 +254,7 @@ const VitalsGraph = () => {
                 </div>
 
                 {/* Table */}
-                <div className="lg:mt-6 sm:mt-4">
+                <div className="lg:mt-6 sm:mt-4 overflow-auto">
                     <table className="w-full border-collapse ">
                         <thead>
                             <tr>
