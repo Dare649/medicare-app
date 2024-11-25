@@ -1,4 +1,3 @@
-// AuthContext.js
 import { createContext, useContext, useState, useEffect } from "react";
 import { axiosClient } from "../axios";
 import Swal from "sweetalert2";
@@ -33,9 +32,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error(error?.response?.data?.message || "Error during signin");
       MySwal.fire({
-        icon: 'error',
-        title: 'Authentication Error',
-        text: error?.response?.data?.message || 'An error occurred during sign in.',
+        icon: "error",
+        title: "Authentication Error",
+        text: error?.response?.data?.message || "An error occurred during sign in.",
       });
       throw error;
     }
@@ -49,22 +48,8 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-
-  // const signout = async () => {
-  //   try {
-  //     setToken(null);
-  //     localStorage.removeItem("token");
-  //     localStorage.removeItem("user");
-  //     localStorage.removeItem("pin");
-  //     setIsAuthenticated(false);
-  //     await axiosClient.delete("/v1/auth/logout");
-  //   } catch (error) {
-  //     console.error("Error signing out", error);
-  //   }
-  // };
-
   return (
-    <AuthContext.Provider value={{ token, signin, signout, user, isAuthenticated }}>
+    <AuthContext.Provider value={{ token, signin, signout, user, setUser, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

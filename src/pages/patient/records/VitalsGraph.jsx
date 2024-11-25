@@ -184,6 +184,7 @@ const VitalsGraph = () => {
                         <option value="">--Select Duration--</option>
                         <option value="weekly">Weekly</option>
                         <option value="monthly">Monthly</option>
+                        <option value="quarterly">Quarterly</option>
                         <option value="yearly">Yearly</option>
                     </select>
 

@@ -22,23 +22,22 @@ const AddAccount = ({handleClose, onClick}) => {
     sex: "",
     date_of_birth: "",
     relationship: "",
-    email: ""
+    email: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "date_of_birth") {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    if (name === "date_of_birth" && value) {
       const [year, month, day] = value.split("-");
-      const formattedDate = `${day}-${month}-${year}`;
-      setFormData({
-        ...formData,
-        date_of_birth: formattedDate,
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        date_of_birth: `${day}-${month}-${year}`,
+      }));
     }
   };
 
@@ -59,11 +58,23 @@ const AddAccount = ({handleClose, onClick}) => {
     }));
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError({});
-
-    const requiredFields = ["name", "email", "country_code", "phone", "sex", "date_of_birth", "relationship"];
+    const requiredFields = [
+      "name",
+      "email",
+      "country_code",
+      "phone",
+      "sex",
+      "date_of_birth",
+      "relationship",
+    ];
     let formErrors = {};
 
     requiredFields.forEach((field) => {
@@ -71,6 +82,10 @@ const AddAccount = ({handleClose, onClick}) => {
         formErrors[field] = `${field.replace("_", " ")} is required`;
       }
     });
+
+    if (formData.email && !validateEmail(formData.email)) {
+      formErrors.email = "Invalid email format";
+    }
 
     if (Object.keys(formErrors).length > 0) {
       setError(formErrors);
@@ -80,29 +95,29 @@ const AddAccount = ({handleClose, onClick}) => {
     setLoading(true);
 
     try {
-      await axiosClient.post("/api/patient/add_account", formData);
+      const response = await axiosClient.post("/api/patient/add_account", formData);
+      const updatedUser = response.data.data.user;
+      localStorage.setItem("user", JSON.stringify(updatedUser));
       setLoading(false);
       MySwal.fire({
         title: "Success!",
         text: "Account has been added successfully!",
         icon: "success",
       }).then(() => {
-        handleClose()
+        handleClose();
       });
     } catch (error) {
       setLoading(false);
       MySwal.fire({
         title: "Error!",
-        text: "Something went wrong!",
+        text: error?.response?.data?.message || "Something went wrong!",
         icon: "error",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="lg:w-[50%] sm:w-full bg-white rounded-lg">
+    <div className="lg:w-[70%] sm:w-full bg-white rounded-lg overflow-y-auto max-h-screen">
       <div className="flex flex-row items-center justify-between sm:p-2 lg:p-5">
         <h2 className="capitalize lg:text-2xl sm:text-lg font-bold">add account</h2>
         <IoMdClose size={30} className="text-red-500 font-bold cursor-pointer" onClick={onClick}/>
