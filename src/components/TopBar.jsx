@@ -10,6 +10,7 @@ import logo from "../assets/images/logo.png";
 import { useAuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2"; // Ensure SweetAlert is imported
 import withReactContent from "sweetalert2-react-content"; // Optional for React integration
+import { IoLogOutOutline } from "react-icons/io5";
 
 const TopBar = ({ onChange, placeholder }) => {
   const [visible, setVisible] = useState(false);
@@ -104,16 +105,20 @@ const TopBar = ({ onChange, placeholder }) => {
                           <NavLink
                             onClick={() => {
                               handleVisible();
-                              if (item.gap1 === true) {
-                                handleSignout();
-                              }
                             }}
                             to={item.path}
-                            className={`flex flex-row space-x-2 active:text-primary-100 text-primary-100 capitalize text-lg font-medium hover:text-primary-100 ${item.gap1 === true ? "text-red-500": null}`}
+                            className={`flex flex-row space-x-2 active:text-primary-100 text-primary-100 capitalize text-lg font-medium hover:text-primary-100 ${item.gap === true ? "text-red-500": null}`}
                           >
                             <p>{item.icon}</p>
                             <p>{item.title}</p>
                           </NavLink>
+                          <div
+                            className="fixed bottom-5 flex items-center flex-row gap-x-2 text-red-500 font-bold cursor-pointer"
+                            onClick={handleSignout}
+                          >
+                            <IoLogOutOutline size={30}/>
+                            <p>Sign out</p>
+                          </div>
                         </div>
                       ))
                     : docnav.map((item, id) => (
@@ -121,16 +126,20 @@ const TopBar = ({ onChange, placeholder }) => {
                           <NavLink
                             onClick={() => {
                               handleVisible();
-                              if (item.gap1 === true) {
-                                handleSignout();
-                              }
                             }}
                             to={item.path}
-                            className={`flex flex-row space-x-2 active:text-primary-100 text-primary-100 capitalize text-lg font-medium hover:text-primary-100 ${item.gap1 === true ? "text-red-500": null}`}
+                            className={`flex flex-row space-x-2 active:text-primary-100 text-primary-100 capitalize text-lg font-medium hover:text-primary-100 ${item.gap === true ? "text-red-500": null}`}
                           >
                             <p>{item.icon}</p>
                             <p>{item.title}</p>
                           </NavLink>
+                          <div
+                            className="fixed bottom-5 flex items-center flex-row gap-x-2 text-red-500 font-bold cursor-pointer"
+                            onClick={handleSignout}
+                          >
+                            <IoLogOutOutline size={30}/>
+                            <p>Sign out</p>
+                          </div>
                         </div>
                       ))}
                 </div>

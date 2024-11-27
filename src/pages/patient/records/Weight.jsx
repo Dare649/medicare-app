@@ -135,7 +135,7 @@ const Weight = ({handleClose}) => {
                         value={formData.unit}
                         onChange={handleChange}
                     >
-                        <option disabled>--select unit--</option>
+                        <option >--select unit--</option>
                         <option value="kg">kg</option>
                         <option value="lbs">lbs</option>
                     </select>

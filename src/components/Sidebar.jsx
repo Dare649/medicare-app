@@ -68,7 +68,7 @@ const Sidebar = ({ children }) => {
                 className="fixed bottom-5 flex items-center flex-row gap-x-2 text-red-500 font-bold cursor-pointer"
                 onClick={handleSignout}
               >
-                <IoLogOutOutline />
+                <IoLogOutOutline size={30}/>
                 <p>Sign out</p>
               </div>
             </div>

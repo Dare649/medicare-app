@@ -43,7 +43,6 @@ export const navLink = [
         title: "settings",
         icon: <CiSettings size={30}/>,
         path: "/patient-settings",
-        gap: true
     },
     
 ]
