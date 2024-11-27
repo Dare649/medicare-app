@@ -95,7 +95,7 @@ const Records = () => {
 
         const fetchFood = async () => {
             try {
-                const response = await axiosClient.get(`/api/patient/rm/get_latest_reading/food`);
+                const response = await axiosClient.get(`/api/patient/rm/get_latest_reading/food_log`);
                 setFood(response?.data?.data[0] ?? null);
             } catch (error) {
                 Swal.fire({
@@ -164,7 +164,7 @@ const Records = () => {
                                 Activity: <span className="text-neutral-100">{bloodPressure.activity}</span>
                             </h2>
                             <h2 className="lg:text-sm sm:text-xs font-bold text-neutral-50">
-                                <span>{bloodPressure.date}</span> <span>{bloodPressure.time}</span>
+                                <span>{bloodPressure.date}</span> <span className="ml-2">{bloodPressure.time}</span>
                             </h2>
                         </div>
                     </div>
@@ -190,7 +190,7 @@ const Records = () => {
                                 <div className="w-full">
                                     <h2 className="lg:text-sm sm:text-xs font-bold text-neutral-50 gap-x-3">
                                         <span>{bloodSugar.date}</span>
-                                        <span>{bloodSugar.time}</span>
+                                        <span className="ml-2">{bloodSugar.time}</span>
                                     </h2>
                                 </div>
                             </div>
@@ -202,16 +202,16 @@ const Records = () => {
                         {food ? (
                             <div className="w-full lg:p-3 sm:p-1 ">
                                 <div className="flex flex-row items-center gap-2 w-full">
-                                    <img src={heart1} alt="MyMedicare" className="w-32"/>
+                                    <img src={heart1} alt="MyMedicare" className="w-28"/>
                                     <h4 className="capitalize font-medium text-xl">food</h4>
                                 </div>
                                 <div className="my-2 w-full">
-                                    <p className="font-medium text-md capitalize">latest reading</p>
-                                    <h2 className="lg:text-md sm:text-sm font-bold">
-                                        <span>{food?.systolic}</span>/
-                                        <span>{food?.diastolic}</span>
-                                        <span> {food?.unit}</span>
-                                    </h2>
+                                <p className="font-medium lg:text-md sm:text-sm capitalize">latest reading</p>
+                                    <div>
+                                        <h2 className="lg:text-md sm:text-sm font-bold first-letter:capitalize text-primary-100"> food:<span className="text-neutral-100">{food.food}</span></h2>
+                                        <h2 className="lg:text-md sm:text-sm font-bold first-letter:capitalize text-primary-100">amount:<span className="text-neutral-100">{food.amount}</span></h2>
+                                        <h2 className="lg:text-md sm:text-sm font-bold text-primary-100 capitalize"> unit: <span className="text-neutral-100">{food.unit}</span></h2>
+                                    </div>
                                 </div>
                                 <div className="w-full">
                                     <h2 className="capitalize font-bold">{food?.activity}</h2>
