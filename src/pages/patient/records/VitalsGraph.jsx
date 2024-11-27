@@ -189,7 +189,7 @@ const VitalsGraph = () => {
                             <CircularProgress color="inherit" />
                         </Backdrop>
                     ) : chartData.labels.length > 0 ? (
-                        <Line data={chartData} />
+                        <Line data={chartData} className="w-full"/>
                     ) : (
                         <div className="text-primary-100 font-bold capitalize text-center">No data available</div>
                     )}
@@ -210,7 +210,9 @@ const VitalsGraph = () => {
                         <tbody>
                             {tableData.length > 0 ? (
                                 tableData.map((row, idx) => (
-                                    <tr key={idx}>
+                                    <tr key={idx}
+                                        className="odd:bg-neutral-50"
+                                    >
                                         {Object.values(row).map((value, idy) => (
                                             <td key={idy} className="border-b-2 px-4 py-2">
                                                 {value}
