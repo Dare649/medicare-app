@@ -11,10 +11,12 @@ const VitalsGraph = () => {
     const [loading, setLoading] = useState(false);
     const MySwal = withReactContent(Swal);
 
-    const [foodData, setFoodData] = useState({ table: [], chart: {} });
-    const [bloodPressureData, setBloodPressureData] = useState({ table: [], chart: {} });
-    const [bloodSugarData, setBloodSugarData] = useState({ table: [], chart: {} });
-    const [weightData, setWeightData] = useState({ table: [], chart: {} });
+    const [vitalsData, setVitalsData] = useState({
+        food: { table: [], chart: {} },
+        blood_pressure: { table: [], chart: {} },
+        blood_sugar: { table: [], chart: {} },
+        weight: { table: [], chart: {} },
+    });
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -93,10 +95,16 @@ const VitalsGraph = () => {
                         }),
                     ]);
 
-                    setFoodData(responses[0].data.data);
-                    setBloodPressureData(responses[1].data.data);
-                    setBloodSugarData(responses[2].data.data);
-                    setWeightData(responses[3].data.data);
+                    const newVitalsData = {
+                        food: responses[0].data.data,
+                        blood_pressure: responses[1].data.data,
+                        blood_sugar: responses[2].data.data,
+                        weight: responses[3].data.data,
+                    };
+
+                    console.log('Fetched Vitals Data:', newVitalsData); // Debugging log
+
+                    setVitalsData(newVitalsData);
                 } catch (error) {
                     MySwal.fire({
                         title: "Error",
@@ -114,21 +122,28 @@ const VitalsGraph = () => {
     const handleTabClick = (tab) => setActiveTab(tab);
 
     const getChartData = () => {
-        const tabData = {
-            food: foodData.chart,
-            blood_pressure: bloodPressureData.chart,
-            blood_sugar: bloodSugarData.chart,
-            weight: weightData.chart,
-        }[activeTab];
+        const tabData = vitalsData[activeTab]?.chart || {};
+        const labels = Object.keys(tabData); // Get dates
+        const data = labels.map(date => {
+            const record = tabData[date];
+            // Use either 'average_amount' or 'average_calories' based on selected option
+            return activeTab === "food" 
+                ? record.average_calories 
+                : activeTab === "blood_pressure" 
+                    ? record.average_systolic 
+                    : activeTab === "blood_sugar" 
+                        ? record.average_reading_in_mgdl || record.average_reading
+                        : record.average_reading_in_unit || record.average_reading;
+        });
+
+        console.log('Chart Data:', data); // Debugging log
 
         return {
-            labels: Object.keys(tabData || {}),
+            labels,
             datasets: [
                 {
-                    label: activeTab === "blood_pressure" ? "Systolic" : "Reading",
-                    data: Object.values(tabData || {}).map((item) =>
-                        activeTab === "blood_pressure" ? item.average_systolic : item.count
-                    ),
+                    label: activeTab === "food" ? "Calories (kcal)" : activeTab === "blood_pressure" ? "Systolic" : activeTab === "blood_sugar" ? "Reading (mg/dl)" : "Reading",
+                    data,
                     borderColor: "#0058E6",
                     backgroundColor: "rgba(0, 88, 230, 0.2)",
                     fill: true,
@@ -138,12 +153,9 @@ const VitalsGraph = () => {
     };
 
     const getTableData = () => {
-        return {
-            food: foodData.table,
-            blood_pressure: bloodPressureData.table,
-            blood_sugar: bloodSugarData.table,
-            weight: weightData.table,
-        }[activeTab];
+        const tableData = vitalsData[activeTab]?.table || [];
+        // Remove 'id' and 'patient_id' from the table data
+        return tableData.map(({ id, patient_id, ...rest }) => rest);
     };
 
     const chartData = getChartData();
@@ -153,7 +165,7 @@ const VitalsGraph = () => {
         <div className="w-full">
             <div className="w-full lg:p-10 sm:p-5">
                 {/* Filters */}
-                <div className="w-full flex lg:flex-row sm:flex-col items-center gap-3">
+                <div className="sm:w-full lg:w-[50%] flex lg:flex-row sm:flex-col items-center gap-3">
                     <select
                         value={duration}
                         onChange={(e) => setDuration(e.target.value)}
@@ -188,7 +200,7 @@ const VitalsGraph = () => {
                         <Backdrop open={loading}>
                             <CircularProgress color="inherit" />
                         </Backdrop>
-                    ) : chartData.labels.length > 0 ? (
+                    ) : chartData.labels && chartData.labels.length > 0 ? (
                         <Line data={chartData} className="w-full"/>
                     ) : (
                         <div className="text-primary-100 font-bold capitalize text-center">No data available</div>
@@ -201,32 +213,21 @@ const VitalsGraph = () => {
                         <thead>
                             <tr>
                                 {Object.keys(tableData[0] || {}).map((key, idx) => (
-                                    <th key={idx} className="border-b-2 px-4 py-2 text-left">
-                                        {key.replace("_", " ").toUpperCase()}
-                                    </th>
+                                    <th key={idx} className="py-2 px-4 text-left capitalize">{key}</th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
-                            {tableData.length > 0 ? (
-                                tableData.map((row, idx) => (
-                                    <tr key={idx}
-                                        className="odd:bg-neutral-50"
-                                    >
-                                        {Object.values(row).map((value, idy) => (
-                                            <td key={idy} className="border-b-2 px-4 py-2">
-                                                {value}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="5" className="px-4 py-2 text-center">
-                                        No data available
-                                    </td>
+                            {tableData.map((row, idx) => (
+                                <tr 
+                                    key={idx}
+                                    className="even:bg-neutral-10 capitalize"
+                                >
+                                    {Object.values(row).map((value, index) => (
+                                        <td key={index} className="py-2 px-4">{value}</td>
+                                    ))}
                                 </tr>
-                            )}
+                            ))}
                         </tbody>
                     </table>
                 </div>

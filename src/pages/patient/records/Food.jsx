@@ -133,10 +133,10 @@ const Food = ({handleClose}) => {
                     </div>
                     <div className="mt-3">
                         <input
-                            type="text"
+                            type="number"
                             className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
                             name="amount"
-                            placeholder="E.g 400kcals or 2 slices"
+                            placeholder="E.g Spoon, Slice, Morsel, Cup etc.. 5"
                             value={formData.amount}
                             onChange={handleChange}
                         />
@@ -150,7 +150,7 @@ const Food = ({handleClose}) => {
                     </div>
                     <div className="mt-3">
                         <input
-                            type="text"
+                            type="number"
                             className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
                             name="calories"
                             placeholder="E.g 400"

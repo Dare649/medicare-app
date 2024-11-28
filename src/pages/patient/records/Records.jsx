@@ -169,7 +169,7 @@ const Records = () => {
                         </div>
                     </div>
                 ) : (
-                    <p className="font-medium lg:text-md sm:text-sm capitalize">No blood pressure data available</p>
+                    <p className="font-medium lg:text-md sm:text-sm capitalize text-center text-primary-100">No blood pressure data available</p>
                 )}
             </div>
                     <div className="bloodSugar bg-white rounded-lg">
