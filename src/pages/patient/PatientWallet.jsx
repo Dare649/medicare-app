@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import { PiCoins } from "react-icons/pi";
-import { LiaPoundSignSolid } from "react-icons/lia";
+import { TbCurrencyNaira } from "react-icons/tb";
 import { PiEyeLight } from "react-icons/pi";
 import { HiOutlineEyeSlash } from "react-icons/hi2";
 import { axiosClient } from "../../axios";
@@ -136,7 +136,7 @@ const PatientWallet = () => {
         <div className="my-5">
           <div className="w-full flex flex-row items-center justify-between lg:px-5 sm:px-3">
             <div className="flex flex-row items-center">
-              <LiaPoundSignSolid size={20} />
+              <TbCurrencyNaira size={20} />
               <h2 className="lg:text-4xl sm:text-xl font-bold">
                 {showBalance ? formatAmountWithCommas(data?.balance) : "xxxx"}
               </h2>
@@ -189,7 +189,7 @@ const PatientWallet = () => {
                     {item.status}
                   </td>
                   <td className="py-2 px-6 flex flex-row items-center gap-x-2">
-                    <LiaPoundSignSolid size={15} />
+                    <TbCurrencyNaira size={15} />
                     <span>{formatAmountWithCommas(item.amount)}</span>
                   </td>
                 </tr>
@@ -260,7 +260,7 @@ const PatientWallet = () => {
                     </div>
                     <div className="flex float-right">
                     <h2 className="flex items-center w-full text-xl font-bold">
-                      <LiaPoundSignSolid size={15} />
+                      <TbCurrencyNaira size={15} />
                       <h2>{formatAmountWithCommas(item.amount)}</h2>
                     </h2>
                     </div>
