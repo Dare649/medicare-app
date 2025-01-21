@@ -100,6 +100,7 @@ const FundModal = ({ handleClose }) => {
     } finally {
       setLoading(false);
       handleClose(); // Close the modal after the process completes
+      window.location.reload();
     }
   };
   

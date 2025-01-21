@@ -17,6 +17,7 @@ const BloodPressure = ({handleClose}) => {
         activity: "",
         systolic: "",
         diastolic: "",
+        pulse_rate: "",
         unit: "mmHg"
     });
 
@@ -56,6 +57,10 @@ const BloodPressure = ({handleClose}) => {
         }
         if (!formData.activity) {
             setError((prev) => ({ ...prev, activity: "Activity is required" }));
+            return;
+        }
+        if (!formData.pulse_rate) {
+            setError((prev) => ({ ...prev, pulse_rate: "Pulse Rate is required" }));
             return;
         }
         if (!formData.systolic) {
@@ -157,22 +162,40 @@ const BloodPressure = ({handleClose}) => {
                     {error.activity && <p className="text-red-500 text-sm">{error.activity}</p>}
                 </div>
             </div>
-            <div className="unit w-full">
-                <div className="w-full items-center justify-between flex flex-row">
-                    <label className="capitalize font-bold text-lg">Unit</label>
+            <div className="w-full flex lg:flex-row sm:flex-col items-center gap-5">
+                <div className="unit w-full">
+                    <div className="w-full items-center justify-between flex flex-row">
+                        <label className="capitalize font-bold text-lg">Unit</label>
+                    </div>
+                    <div className="mt-3">
+                        <input
+                            type="text"
+                            name="unit"
+                            disabled
+                            className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
+                            value={formData.unit}
+                            onChange={handleChange}
+                        />
+                        {error.unit && <p className="text-red-500 text-sm">{error.unit}</p>}
+                    </div>
                 </div>
-                <div className="mt-3">
-                    <input
-                        type="text"
-                        name="unit"
-                        disabled
-                        className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
-                        value={formData.unit}
-                        onChange={handleChange}
-                    />
-                    {error.unit && <p className="text-red-500 text-sm">{error.unit}</p>}
+                <div className="pulse-rate w-full">
+                    <div className="w-full items-center justify-between flex flex-row">
+                        <label className="capitalize font-bold text-lg">pulse rate</label>
+                    </div>
+                    <div className="mt-3">
+                        <input
+                            type="number"
+                            name="pulse_rate"
+                            className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md"
+                            value={formData.pulse_rate}
+                            onChange={handleChange}
+                        />
+                        {error.pulse_rate && <p className="text-red-500 text-sm">{error.pulse_rate}</p>}
+                    </div>
                 </div>
             </div>
+            
             <div className="flex lg:flex-row sm:flex-col w-full items-center gap-4 mb-8 mt-3">
                 <div className="systolic lg:w-[50%] sm:w-full">
                     <div className="w-full items-center justify-between flex flex-row">

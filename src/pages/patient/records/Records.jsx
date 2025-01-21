@@ -155,6 +155,9 @@ const Records = () => {
                                     Diastolic: <span className="text-neutral-100">{bloodPressure.diastolic}</span>
                                 </h2>
                                 <h2 className="capitalize lg:text-md sm:text-sm font-bold text-primary-100">
+                                    pulse rate: <span className="text-neutral-100">{bloodPressure.pulse_rate}</span>
+                                </h2>
+                                <h2 className="capitalize lg:text-md sm:text-sm font-bold text-primary-100">
                                     Unit: <span className="text-neutral-100">{bloodPressure.unit}</span>
                                 </h2>
                             </div>
