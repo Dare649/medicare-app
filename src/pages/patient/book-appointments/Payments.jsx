@@ -10,12 +10,13 @@ const Payment = ({ formData, updateFormData, nextStep, prevStep }) => {
   const [consultationTypes, setConsultationTypes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [localData, setLocalData] = useState({
-    consultation_type: "",
+    package_id: "",
     amount: "",
-    payment_status: "full", // Default to "full"
+    payment_status: "full", 
     payment_method: "",
   });
   const MySwal = withReactContent(Swal);
+
 
   useEffect(() => {
     const fetchAmounts = async () => {
@@ -23,82 +24,41 @@ const Payment = ({ formData, updateFormData, nextStep, prevStep }) => {
         setLoading(true);
         const response = await axiosClient.get("/api/patient/appt/get_price/oc");
         setConsultationTypes(response.data.data || []);
-        setLoading(false);
-
-        if (response.data.data && response.data.data.length > 0) {
-          // Set initial values
-          setLocalData((prev) => ({
-            ...prev,
-            consultation_type: "", // Default to "select payment mode"
-            amount: "",
-            payment_status: "full",
-          }));
-        }
       } catch (error) {
+        MySwal.fire("Error", "Failed to fetch consultation prices", "error");
+      } finally {
         setLoading(false);
-        MySwal.fire({
-          text: error?.response?.data?.message || "An error occurred while fetching the amount",
-          icon: "error",
-          title: "Error",
-        });
       }
     };
 
     fetchAmounts();
-  }, []); // Run only on initial render
+  }, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setLocalData((prev) => {
-      const updatedData = { ...prev, [name]: value };
+    if (name === "package_id") {
+      const selectedType = consultationTypes.find(
+        (type) => type.id.toString() === value
+      );
 
-      if (name === "consultation_type" || name === "payment_status") {
-        const selectedType = consultationTypes.find(
-          (type) => type.name === (name === "consultation_type" ? value : prev.consultation_type)
-        );
-        if (selectedType) {
-          updatedData.amount = updatedData.payment_status === "full"
-            ? selectedType.full_amount
-            : selectedType.partial_amount;
-        }
-      }
-
-      return updatedData;
-    });
-  };
-
-  const handleConsultationTypeChange = (e) => {
-    const selectedTypeName = e.target.value;
-    const selectedType = consultationTypes.find(
-      (type) => type.name === selectedTypeName
-    );
-    
-    if (selectedType) {
-      setLocalData({
-        consultation_type: selectedTypeName,
-        amount: selectedType.full_amount,
-        payment_status: "full", // Default to "full" when a mode is selected
-        payment_method: localData.payment_method,
-      });
+      setLocalData((prev) => ({
+        ...prev,
+        package_id: value,
+        amount: selectedType ? selectedType.amount : "",
+      }));
     } else {
-      setLocalData({
-        consultation_type: selectedTypeName,
-        amount: "",
-        payment_status: "full",
-        payment_method: localData.payment_method,
-      });
+      setLocalData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     }
   };
 
-  const handleNext = async () => {
-    updateFormData({
-      ...formData,
-      amount: localData.amount,
-      payment_status: localData.payment_status,
-      payment_method: localData.payment_method,
-    });
 
+  const handleNext = () => {
+    updateFormData(localData);
     nextStep();
   };
 
@@ -109,16 +69,16 @@ const Payment = ({ formData, updateFormData, nextStep, prevStep }) => {
         <div className="w-full my-3">
           <h2 className="font-semibold lg:text-lg sm:text-md mb-2 capitalize">Payment Mode</h2>
           <select
-            name="consultation_type"
+            name="package_id"
             className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md capitalize"
-            value={localData.consultation_type}
-            onChange={handleConsultationTypeChange}
+            value={localData.package_id}
+            onChange={handleChange}
           >
             <option value="">--select payment mode--</option>
             {consultationTypes.map((type) => (
-              <option key={type.name} value={type.name}>
-                {type.mode} {/* Display the mode */}
-              </option>
+              <option key={type.id} value={type.id}>
+              {type.name} - {type.mode}
+            </option>
             ))}
           </select>
         </div>
@@ -132,10 +92,10 @@ const Payment = ({ formData, updateFormData, nextStep, prevStep }) => {
           >
             <option value="">--select payment method--</option>
             <option value="wallet">Wallet</option>
-            <option value="stripe">Card</option>
+            <option value="pay_stack">Card</option>
           </select>
         </div>
-        <div className="w-full my-3">
+        {/* <div className="w-full my-3">
           <h2 className="font-semibold lg:text-lg sm:text-md mb-2 capitalize">Payment Status</h2>
           <select
             className="outline-none border-2 border-neutral-50 focus:border-primary-100 px-3 py-2 w-full rounded-md capitalize"
@@ -146,7 +106,7 @@ const Payment = ({ formData, updateFormData, nextStep, prevStep }) => {
             <option value="full">Full</option>
             <option value="partial">Partial</option>
           </select>
-        </div>
+        </div> */}
         <div className="w-full my-3">
           <h2 className="font-semibold lg:text-lg sm:text-md mb-2 capitalize">Amount</h2>
           <input

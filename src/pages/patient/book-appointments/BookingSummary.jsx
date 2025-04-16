@@ -6,7 +6,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { axiosClient } from "../../../axios";
 import avater from "../../../assets/images/avarter.jpg";
-import { FaPoundSign } from "react-icons/fa";
+import { TbCurrencyNaira } from "react-icons/tb";
 
 const BookingSummary = ({ formData, handleSubmit, prevStep }) => {
   const [doctor, setDoctor] = useState({});
@@ -113,7 +113,7 @@ const BookingSummary = ({ formData, handleSubmit, prevStep }) => {
         <div className="w-full grid lg:grid-cols-3 sm:grid-cols-2  py-3">
           <div className="py-2">
             <h2 className="font-bold capitalize text-md text-primary-100">amount</h2> 
-            <h2 className="font-bold text-neutral-100 capitalize text-xl flex items-center gap-2"><FaPoundSign/>{amount}</h2> 
+            <h2 className="font-bold text-neutral-100 capitalize text-xl flex items-center"><TbCurrencyNaira size={22}/>{amount}</h2> 
           </div>
           <div className="py-2">
             <h2 className="font-bold capitalize text-md text-primary-100">payment status</h2> 

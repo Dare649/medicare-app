@@ -124,14 +124,14 @@ const Signin = () => {
                 </button>
               </div>
 
-              <p className="flex flex-col items-center justify-center my-2 text-neutral-50">or</p>
+              {/* <p className="flex flex-col items-center justify-center my-2 text-neutral-50">or</p>
 
               <div className="googleSignup w-full rounded-lg border-2 border-neutral-50 cursor-pointer">
                 <div className="flex flex-row items-center justify-center space-x-1 h-16 ">
                   <img src={google} alt="MyMedicare" />
                   <p className="first-letter:capitalize last-letter:capitalize text-neutral-50">sign in with google</p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="signUp my-2 text-center">
                 <p className="text-md first-letter:capitalize text-neutral-50">don't have an account? <Link className="text-primary-100 first-letter:capitalize" to={"/sign-up"}>sign up</Link></p>

@@ -51,6 +51,16 @@ const Account = () => {
     setFormData({ ...formData, phone: value });
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // months are 0-based
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError({});
@@ -111,7 +121,14 @@ const Account = () => {
     setLoading(true);
 
     try {
-      await axiosClient.post('/api/doctor/update_account', formData);
+      const payload = {
+        ...formData,
+        date_of_birth: formatDate(formData.date_of_birth),
+        date_of_graduation: formatDate(formData.date_of_graduation),
+      };
+
+
+      await axiosClient.post('/api/doctor/update_account', payload);
       setLoading(false);
       MySwal.fire({
         title: 'Success!',

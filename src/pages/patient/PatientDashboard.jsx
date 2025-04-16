@@ -4,12 +4,12 @@ import { FiUpload } from "react-icons/fi";
 import coin from "../../assets/images/dash-1.png";
 import doc from "../../assets/images/dash-2.png";
 import { IoIosArrowForward } from "react-icons/io";
-import { Link } from "react-router-dom";
 import { appointments, prescriptions, graphDetails, services } from "../../components/dummy";
 import GraphSlider from "../../components/graphSlider";
 import Modal from "../../components/Modal";
 import AppointmentBooking from "../../patientModalPages/AppointmentBooking";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 
@@ -44,7 +44,10 @@ const dashAppointments = appointments.slice(0, 3)
               <div className="">
                 <h2 className="first-letter:capitalize lg:text-xl sm:text-lg font-semibold">do you need to see a doctor?</h2>
                 <p className="first-letter:capitalize lg:text-lg sm:text-sm">an appointment is just a cliq away!</p>
-                <button className="lg:w-60 sm:w-full sm:h-10 lg:h-14 lg:mt-5 sm:mt-2 text-center bg-primary-100 text-white first-letter:capitalize font-medium rounded-lg lg:text-lg sm:text-xs">book an appointment</button>
+                <Link to={'/patient-schedules'}>
+                  <button className="lg:w-60 sm:w-full sm:h-10 lg:h-14 lg:mt-5 sm:mt-2 text-center bg-primary-100 text-white first-letter:capitalize font-medium rounded-lg lg:text-lg sm:text-xs">book an appointment</button>
+                </Link>
+                
               </div>
               <div className="lg:flex sm:hidden">
                 <img src={doc} alt="MyMedicare" className=""/>

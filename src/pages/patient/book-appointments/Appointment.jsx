@@ -48,7 +48,7 @@ const Appointment = ({ formData, updateFormData, nextStep }) => {
         const response = await axiosClient.get(`/api/patient/doctor/${formData.doctorId}/time_slots`, {
           params: { date: formattedDate },
         });
-        setTimeSlots(response.data.slots || []);
+        setTimeSlots(response?.data?.data || []);
       } catch (error) {
         MySwal.fire({
           icon: "error",
