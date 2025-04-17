@@ -75,7 +75,7 @@ const Appointments = () => {
    const handleConfirmAppt = async (booking_id) => {
     try {
       setLoading(true);
-      const response = await axiosClient.post(`/api/doctor/${booking_id}/confirm_appt`);
+      const response = await axiosClient.post(`/api/doctor/${booking_id}/confirm`);
       setLoading(false);
       MySwal.fire({
         title: "Success",
@@ -171,7 +171,7 @@ const Appointments = () => {
   
 
    // decline appointment function
-const handleDeclineAppt = async (booking_id) => {
+  const handleDeclineAppt = async (booking_id) => {
     try {
       // Show confirmation dialog
       const result = await MySwal.fire({
@@ -187,13 +187,14 @@ const handleDeclineAppt = async (booking_id) => {
       if (result.isConfirmed) {
         setLoading(true);
         // Make API call to decline appointment
-        await axiosClient.post(`/api/doctor/${booking_id}/decline_appt`);
+        await axiosClient.post(`/api/doctor/${booking_id}/decline`);
         setLoading(false);
-        // Show success message
-        await MySwal.fire({
+        MySwal.fire({
           title: "Success",
           icon: "success",
-          text: "Consultation declined successfully.",
+          text: "Consultation confirmed successfully.",
+        }).then(() => {
+          window.location.reload();
         });
       }
     } catch (error) {
